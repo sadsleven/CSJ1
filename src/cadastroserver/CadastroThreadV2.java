@@ -31,6 +31,7 @@ public class CadastroThreadV2 extends Thread {
     private Socket s1;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    private SaidaFrame saidaFrame;
 
     public CadastroThreadV2(ProdutoJpaController ctrlProd, UsuarioJpaController ctrlUsu, 
                           MovimentoJpaController ctrlMov, PessoaJpaController ctrlPessoa, 
@@ -40,6 +41,8 @@ public class CadastroThreadV2 extends Thread {
         this.ctrlMov = ctrlMov;
         this.ctrlPessoa = ctrlPessoa;
         this.s1 = s1;
+        this.saidaFrame = new SaidaFrame();
+        
         try {
             out = new ObjectOutputStream(s1.getOutputStream());
             in = new ObjectInputStream(s1.getInputStream());
@@ -51,6 +54,8 @@ public class CadastroThreadV2 extends Thread {
     @Override
     public void run() {
         try {
+            saidaFrame.setVisible(true);
+            
             String login = (String) in.readObject();
             String senha = (String) in.readObject();
             
@@ -59,7 +64,9 @@ public class CadastroThreadV2 extends Thread {
                 s1.close();
                 return;
             }
-
+            
+            saidaFrame.texto.append((String) "Nova conexão estabelecida" + "\n");
+            
             while (true) {
                 String comando = (String) in.readObject();
                 if (comando.equals("L")) {
@@ -68,6 +75,7 @@ public class CadastroThreadV2 extends Thread {
                     String[] produtoNames = new String[produtoArray.length];
                     for (int i = 0; i < produtoArray.length; i++) {
                         produtoNames[i] = produtoArray[i].getNome();
+                        saidaFrame.texto.append((String) produtoArray[i].getNome() + "::" + produtoArray[i].getPrecoVenda() + "\n");
                     }
                     out.writeObject(produtoNames);
                 } else if (comando.equals("E") || comando.equals("S")) {
@@ -122,7 +130,7 @@ public class CadastroThreadV2 extends Thread {
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Fim da conexão");
+            System.out.println("Fim da conexão" + e);
         } finally {
             try {
                 s1.close();

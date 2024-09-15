@@ -32,9 +32,7 @@ public class MovimentoJpaController implements Serializable {
             System.err.println("movimento" + e);
             em.getTransaction().rollback();
             throw e;
-        } finally {
-            em.close();
-        }
+        } 
     }
     
 }

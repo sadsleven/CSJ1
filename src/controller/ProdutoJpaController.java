@@ -56,9 +56,7 @@ public class ProdutoJpaController {
         } catch (Exception e) {
             em.getTransaction().rollback();
             throw e;
-        } finally {
-            em.close();
-        }
+        } 
     }
 
     public void decrementQuantidade(int idProduto, int quantidade) {
@@ -74,8 +72,6 @@ public class ProdutoJpaController {
         } catch (Exception e) {
             em.getTransaction().rollback();
             throw e;
-        } finally {
-            em.close();
-        }
+        } 
     }
 }
