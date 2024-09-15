@@ -8,6 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import controller.ProdutoJpaController;
 import controller.UsuarioJpaController;
+import controller.PessoaJpaController;
+import controller.MovimentoJpaController;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
@@ -23,6 +25,12 @@ public class CadastroServer {
 
         // Instanciar o objeto ctrlUsu do tipo UsuarioJpaController
         UsuarioJpaController ctrlUsu = new UsuarioJpaController(emf);
+        
+        // Instanciar o objeto ctrlUsu do tipo UsuarioJpaController
+        MovimentoJpaController ctrlMov = new MovimentoJpaController(emf);
+        
+        // Instanciar o objeto ctrlUsu do tipo UsuarioJpaController
+        PessoaJpaController ctrlPessoa = new PessoaJpaController(emf);
         
         ServerSocket serverSocket = null;
 
@@ -48,7 +56,7 @@ public class CadastroServer {
             System.out.println("Nova conexão estabelecida.");
 
             // Instanciar uma Thread, com a passagem de ctrl, ctrlUsu e do Socket da conexão
-            CadastroThread thread = new CadastroThread(ctrl, ctrlUsu, socket);
+            CadastroThreadV2 thread = new CadastroThreadV2(ctrl, ctrlUsu, ctrlMov, ctrlPessoa, socket);
 
             // Iniciar a Thread
             thread.start();

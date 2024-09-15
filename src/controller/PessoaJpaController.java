@@ -4,10 +4,31 @@
  */
 package controller;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+import model.Pessoa;
+
 /**
  *
  * @author abrah
  */
+
 public class PessoaJpaController {
-    
+    private EntityManager em;
+
+    public PessoaJpaController(EntityManagerFactory emf) {
+        this.em = emf.createEntityManager();
+    }
+
+    public Pessoa findPessoa(int idPessoa) {
+        try {
+            Query query = em.createNamedQuery("Pessoa.findByIdPessoa");
+            query.setParameter("idPessoa", idPessoa);
+            return (Pessoa) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

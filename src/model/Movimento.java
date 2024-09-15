@@ -53,6 +53,9 @@ public class Movimento implements Serializable {
     @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
     @ManyToOne
     private Usuario idUsuario;
+    //private Pessoa pessoa;
+    //private Usuario usuario;
+    //private Produto produto;
 
     public Movimento() {
     }
@@ -100,6 +103,14 @@ public class Movimento implements Serializable {
     public void setIdPessoa(Pessoa idPessoa) {
         this.idPessoa = idPessoa;
     }
+    
+    //public Pessoa getPessoa() {
+    //    return this.pessoa;
+    //}
+    
+    //public void setPessoa(Pessoa pessoa) {
+    //    this.pessoa = pessoa;
+    //}
 
     public Produto getIdProduto() {
         return idProduto;
@@ -108,6 +119,14 @@ public class Movimento implements Serializable {
     public void setIdProduto(Produto idProduto) {
         this.idProduto = idProduto;
     }
+    
+    //public Produto getProduto() {
+    //    return this.produto;
+    //}
+    
+    //public void setProduto(Produto produto) {
+    //    this.produto = produto;
+    //}
 
     public Usuario getIdUsuario() {
         return idUsuario;
@@ -116,6 +135,14 @@ public class Movimento implements Serializable {
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
+    
+    //public Usuario getUsuario() {
+    //    return this.usuario;
+    //}
+    
+    //public void setUsuario(Usuario usuario) {
+     //   this.usuario = usuario;
+    //}
 
     @Override
     public int hashCode() {
